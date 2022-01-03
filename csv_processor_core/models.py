@@ -4,7 +4,7 @@ class Farms(models.Model):
     location = models.CharField(max_length=150)
     date_time = models.DateTimeField()
     sensor_type = models.CharField(max_length=50)
-    values = models.IntegerField()
+    values = models.FloatField()
 
 
     def __str__(self):
