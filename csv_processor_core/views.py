@@ -85,14 +85,14 @@ def csv_file_upload(request):
 
 def db_data_show_table(request):
 
-    # Select all data from Farms table in database  
+    # Select all data from Farms table in database.  
     farm_pure_db_data = Farms.objects.all()
     context = {
         "farms_pure": farm_pure_db_data
     }
 
     # Create pandas DataFrame from data
-    # which came from project database
+    # which came from project database.
     df_assets = pd.DataFrame(
         list(
             farm_pure_db_data.values()
