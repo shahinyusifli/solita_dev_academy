@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from csv_processor_core.views import profile_upload
+from csv_processor_core.views import csv_file_upload, db_data_show_table
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('upload/csv/', profile_upload, name="profile_upload"),
+    path('upload/csv/', csv_file_upload, name="csv_file_upload"),
+    path('table/farms', db_data_show_table, name="db_data_show_table"),
 ]
