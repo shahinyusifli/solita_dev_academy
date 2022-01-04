@@ -83,39 +83,3 @@ def csv_file_upload(request):
 
 
 
-def db_data_show_table(request):
-
-    # Select all data from Farms table in database.  
-    farm_pure_db_data = Farms.objects.all()
-    context = {
-        "farms_pure": farm_pure_db_data
-    }
-
-    # Create pandas DataFrame from data
-    # which came from project database.
-    df_assets = pd.DataFrame(
-        list(
-            farm_pure_db_data.values()
-            )
-        )
-
-    # Parsing the DataFrame in json format. 
-    json_records = df_assets.reset_index().to_json(orient ='records') 
-    csv_data = [] 
-    csv_data = json.loads(json_records) 
-    
-    # Create pagination
-    page = request.GET.get('page', 1)
-    paginator = Paginator(csv_data, 100)
-    try:
-        data = paginator.page(page)
-    except PageNotAnInteger:
-        data = paginator.page(1)
-    except EmptyPage:
-        data = paginator.page(paginator.num_pages)
-
-    # Render table to table.html
-    return render(request, 'table_csv.html', { 'farms': data })
-
-
-    
