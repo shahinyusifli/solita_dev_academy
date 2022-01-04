@@ -1,0 +1,45 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+       <th>Location</th>
+      <th>Datetime</th>
+      <th>Type of ensor</th>
+      <th>Values</th>
+   </tr>
+    </thead>
+ <tbody>
+   {% for farm in farms %}
+    <tr>
+      <td>{{ farm.location }}</td>
+      <td>{{ farm.date_time }}</td>
+      <td>{{ farm.sensor_type }}</td>
+      <td>{{ farm.values }}</td>
+   </tr>
+ {% endfor %}
+</tbody>
+</table>
+
+
+ {% if farms.has_other_pages %}
+  <ul class="pagination">
+    {% if farms.has_previous %}
+      <li><a href="?page={{ farms.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in farms.paginator.page_range %}
+      {% if farms.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if farms.has_next %}
+      <li><a href="?page={{ farms.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
