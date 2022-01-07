@@ -117,5 +117,87 @@ def db_data_show_table(request):
     # Render table to table.html
     return render(request, 'table_csv.html', { 'farms': data })
 
+def db_data_show_statistics(request):
+    
+    # Create lists for storing json data
+    # to be used in fornt-end
+    json_avg_monthly = []
+    json_min_monthly = [] 
+    json_max_monthly = [] 
+
+
+     # Select all data from Farms table in database.  
+    farm_pure_db_data = Farms.objects.all()
+    context = {
+        "farms_pure": farm_pure_db_data
+    }
+
+
+    # Create pandas DataFrame from data
+    # which came from project database.
+    df_assets = pd.DataFrame(
+        list(
+            farm_pure_db_data.values()
+            )
+        )
+    
+
+    # Find average by monthly 
+    df_avg_month = df_assets.groupby(
+        pd.PeriodIndex
+            (
+            df_assets['date_time'], freq="M"
+            )
+    )['values'].mean().to_frame(name='mean').reset_index()
+    #Define columns
+    df_avg_month.columns = ['date', 'values']
+
+
+    # Find minumum by monthly
+    df_min_month = df_assets.groupby(
+        pd.PeriodIndex
+            (
+            df_assets['date_time'], freq="M"
+            )
+    )['values'].min().to_frame(name='mean').reset_index()
+    #Define columns
+    df_min_month.columns = ['date', 'values']
+
+
+    # Find maximum by monthly
+    df_max_month = df_assets.groupby(
+        pd.PeriodIndex
+            (
+            df_assets['date_time'], freq="M"
+            )
+    )['values'].max().to_frame(name='mean').reset_index()
+    #Define columns
+    df_max_month.columns = ['date', 'values']
+
+        
+    # Convert pandas DateFrames to json format
+
+    # Convert df_max_month to json format
+    json_records_avg_monthly = df_avg_month.reset_index().to_json(orient ='records')  
+    json_avg_monthly = json.loads(json_records_avg_monthly)
+
+    # Convert df_max_month to json format
+    json_records_min_monthly = df_min_month.reset_index().to_json(orient ='records')  
+    json_min_monthly = json.loads(json_records_min_monthly)
+
+    # Convert df_max_month to json format
+    json_records_max_monthly = df_max_month.reset_index().to_json(orient ='records')  
+    json_max_monthly = json.loads(json_records_max_monthly)
+
+
+    # Create context for using in template 
+    context = {
+        'json_avg_monthly' : json_avg_monthly,
+        'json_min_monthly' : json_min_monthly,
+        'json_max_monthly' : json_max_monthly,
+    }
+
+
+    return render(request, 'statistics_csv.html', context)
 
     
