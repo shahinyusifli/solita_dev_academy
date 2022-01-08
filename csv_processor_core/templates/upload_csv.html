@@ -9,49 +9,40 @@
     
     <body>
     
-        <table class="table table-hover table-dark">
-            <thead>
-              <tr>
-                 <th>Location</th>
-                <th>Datetime</th>
-                <th>Type of sensor</th>
-                <th>Values</th>
-             </tr>
-              </thead>
-           <tbody>
-             {% for farm in farms %}
-              <tr>
-                <td>{{ farm.location }}</td>
-                <td>{{ farm.date_time }}</td>
-                <td>{{ farm.sensor_type }}</td>
-                <td>{{ farm.values }}</td>
-             </tr>
-           {% endfor %}
-          </tbody>
-          </table>
-          
-          
-           {% if farms.has_other_pages %}
-            <ul class="pagination">
-              {% if farms.has_previous %}
-                <li><a href="?page={{ farms.previous_page_number }}">&laquo;</a></li>
-              {% else %}
-                <li class="disabled"><span>&laquo;</span></li>
-              {% endif %}
-              {% for i in farms.paginator.page_range %}
-                {% if farms.number == i %}
-                  <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
-                {% else %}
-                  <li><a href="?page={{ i }}">{{ i }}</a></li>
-                {% endif %}
-              {% endfor %}
-              {% if farms.has_next %}
-                <li><a href="?page={{ farms.next_page_number }}">&raquo;</a></li>
-              {% else %}
-                <li class="disabled"><span>&raquo;</span></li>
-              {% endif %}
-            </ul>
-          {% endif %}
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="col-md-4 col-md-offset-4">
+    {% if messages %}
+        {% for message in messages %}
+            <div>
+<!--                | means OR operator-->
+                <strong>{{message|safe}}</strong>
+            </div>
+        {% endfor %}
+    {% else %}
+        {{order}}
+    
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+    <div class="form-group">
+        <label for="file1"> Upload a file</label>
+        <input type="file" class="form-control-file" id="file1" name="file">
+        <small>Only accepts CSV files</small>
+        <button type="submit" class="btn btn-primary">Upload</button>
+    </div>
+    </form>
+
+    {% endif %}
+    
+</div>
+</body>
+</html>
     
     </body>
     

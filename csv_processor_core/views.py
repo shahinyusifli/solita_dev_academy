@@ -7,6 +7,12 @@ import pandas as pd
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 
+def index_main_page(request):
+
+    template = "index.html"
+    context = {}
+    return render(request, template, context)
+
 def csv_file_upload(request):
 
     # declaring template
