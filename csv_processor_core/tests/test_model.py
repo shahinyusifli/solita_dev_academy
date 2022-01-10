@@ -53,4 +53,8 @@ class FarmModelTest(TestCase):
         max_length = farm._meta.get_field('sensor_type').max_length
         self.assertEqual(max_length, 50)
 
-    
+    # Check location lable with created data
+    def test_farm_location_object_with_data(self):
+        farm = Farms.objects.get(id=1)
+        expected_farm_value = f'{farm.location}'
+        self.assertEqual(str(farm), expected_farm_value)
