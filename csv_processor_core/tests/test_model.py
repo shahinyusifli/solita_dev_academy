@@ -40,4 +40,17 @@ class FarmModelTest(TestCase):
         field_label = farm._meta.get_field('values').verbose_name
         self.assertEqual(field_label, 'values')
 
+    # Check maximum length of location and sensor_type labels
+    # Check maximum length of location label
+    def test_location_max_length(self):
+        farm = Farms.objects.get(id=1)
+        max_length = farm._meta.get_field('location').max_length
+        self.assertEqual(max_length, 150)
+
+    # Check maximum length of sensor_type label
+    def test_sensor_type_max_length(self):
+        farm = Farms.objects.get(id=1)
+        max_length = farm._meta.get_field('sensor_type').max_length
+        self.assertEqual(max_length, 50)
+
     
