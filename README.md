@@ -43,6 +43,9 @@ All data in the database can be seen in this functionality. Also, if data is ove
 
 Statistics about data can be seen in this functionality. Statistics are about minimum, maximum, and average of months of years by values. Statistics about data are shown in tables and these tables can be collapsed by clicking their headers which can be returned in the same way too. 
 
+### Admin panel
+Admin panel reads metadata from Farms model to provide a quick, model-centric interface where trusted users can manage content on site. It can be accessed by `http://127.0.0.1:8000/admin/'. Also, the username is sahinyusifli and password is Adminsahin123
+
 
 ### Notes
 
