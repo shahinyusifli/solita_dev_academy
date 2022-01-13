@@ -17,6 +17,7 @@ def csv_file_upload(request):
 
     # declaring template
     template = "upload_csv.html"
+    template_file_upload_validation_err = "file_upload_validation_error.html"
     data = Farms.objects.all()
 
     # prompt is a context variable that can have different values depending on their context
@@ -35,7 +36,11 @@ def csv_file_upload(request):
     # Let's check if it is a csv file
     csv_file = request.FILES['file']
     if not csv_file.name.endswith('.csv'):
-        messages.error(request, 'THIS IS NOT A CSV FILE')
+         return render(
+            request, 
+            template_file_upload_validation_err,
+            prompt
+            )
     
     # Reading data which
     # directed to view by html form 
