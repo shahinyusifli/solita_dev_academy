@@ -93,9 +93,9 @@ body {
     <div>
       <h3 class="float-md-start mb-0">Solita 2022 task</h3>
       <nav class="nav nav-masthead justify-content-center float-md-end">
-        <a class="nav-link active" aria-current="page" href="http://127.0.0.1:8000/upload/csv/">Upload</a>
-        <a class="nav-link" href="http://127.0.0.1:8000/table/farms">Table</a>
-        <a class="nav-link" href="http://127.0.0.1:8000/statistics/csv/">Statisitcs</a>
+        <a class="nav-link active" aria-current="page" href="{% url 'csv_file_upload' %}">Upload</a>
+        <a class="nav-link" href="{% url 'db_data_show_table' %}">Table</a>
+        <a class="nav-link" href="{% url 'db_data_show_statistics' %}">Statisitcs</a>
       </nav>
     </div>
   </header>
